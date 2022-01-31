@@ -12,6 +12,7 @@
 
         </form>    
 
+        <a href="?type=velo&action=edit&id=<?=   $velo->getId()  ?>" class="btn btn-success ms-3">Modifier</a>
 </div>
 
 

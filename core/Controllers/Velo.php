@@ -137,6 +137,75 @@ class Velo extends AbstractController{
         ]);
 
     }
+    /**
+     * Permet de modifier un vélo
+     */
+    public function edit(){
+
+        $id = null;
+        $idEdit = null;
+        $nomVelo = null;
+        $descriptionVelo= null;
+        $photoVelo = null;
+        $prixVelo = null;
+        
+        
+
+        if(!empty($_POST['id']) && ctype_digit($_POST['id']) && !empty($_POST['nomVelo']) && !empty($_POST['descriptionVelo']) && !empty($_POST['photoVelo']) && !empty($_POST['prixVelo'])){
+
+            $idEdit = $_POST['id'];
+            $nomVelo = htmlspecialchars($_POST['nomVelo']);
+            $descriptionVelo=htmlspecialchars($_POST['descriptionVelo']);
+            $photoVelo = htmlspecialchars($_POST['photoVelo']);
+            $prixVelo = htmlspecialchars($_POST['prixVelo']);
+           
+
+        }
+
+        if($idEdit && $nomVelo && $descriptionVelo && $photoVelo && $prixVelo){
+
+            $velo = $this->defaultModel->findById($idEdit);
+
+            $velo->setContent($nomVelo);
+            $velo->setContent($descriptionVelo);
+            $velo->setContent($photoVelo);
+            $velo->setContent($prixVelo);
+            
+
+            $this->defaultModel->change($velo);
+
+            return $this->redirect([
+
+                                    "type"=>"velo",
+                                    "action"=>"index",
+                                    
+            ]);
+
+        }
+
+
+        
+        if(!empty($_GET['id']) && ctype_digit($_GET['id'])){
+
+            $id = $_GET['id'];
+
+        }
+
+        if(!$id){
+
+            die("vous ne m'avez pas passé d'ID");
+
+        }
+
+        $velo = $this->defaultModel->findById($id);
+
+        return $this->render("velos/editVelo",[
+
+                                            "velo"=>$velo
+        ]);
+
+    }
+    
 
 }
 

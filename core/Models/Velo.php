@@ -61,6 +61,23 @@ class Velo extends AbstractModel{
         ]);
 
     }
+    /**
+     * @param Velo $velo
+     */
+    public function change(Velo $velo){
 
+        $requete = $this->pdo->prepare("UPDATE {$this->nomDeLaTable} SET name = :name, description = :description, image = :image, price = :price where id = :idModifie");
+    
+            $requete->execute([
+    
+                "name"=>$velo->name,
+                "description"=>$velo->description,
+                "image"=>$velo->image,
+                "price"=>$velo->price,
+                "idModifie"=>$velo->id
+            ]);
+    
+    
+    }
 
 }
